@@ -230,6 +230,9 @@ if [ -n "$BB_GIT_VERBOSE_FETCH" ]; then
    sed -i "s/^BB_GIT_VERBOSE_FETCH = .*$/BB_GIT_VERBOSE_FETCH = \"$BB_GIT_VERBOSE_FETCH\"/g" ${BUILDDIR}/conf/local.conf
 fi
 
+echo -e "\n# Additional recipes for PFR" >> ${BUILDDIR}/conf/local.conf
+echo 'IMAGE_INSTALL:append = " htop stress-ng"' >> ${BUILDDIR}/conf/local.conf
+
 ##### auto.conf #####
 cat >| ${BUILDDIR}/conf/auto.conf <<EOF
 # This configuration file is dynamically generated every time
