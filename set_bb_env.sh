@@ -234,6 +234,12 @@ if [ -n "$BB_GIT_VERBOSE_FETCH" ]; then
    sed -i "s/^BB_GIT_VERBOSE_FETCH = .*$/BB_GIT_VERBOSE_FETCH = \"$BB_GIT_VERBOSE_FETCH\"/g" ${BUILDDIR}/conf/local.conf
 fi
 
+echo -e "\n# DL_DIR" >> ${BUILDDIR}/conf/local.conf
+echo "DL_DIR = \"$HOME/.cache/yocto/downloads\"" >> ${BUILDDIR}/conf/local.conf
+
+echo -e "\n# SSTATE_CACHE" >> ${BUILDDIR}/conf/local.conf
+echo "SSTATE_CACHE = \"$HOME/.cache/yocto/sstate-cache\"" >> ${BUILDDIR}/conf/local.conf
+
 
 ##### auto.conf #####
 cat >| ${BUILDDIR}/conf/auto.conf <<EOF
