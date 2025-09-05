@@ -234,6 +234,22 @@ if [ -n "$BB_GIT_VERBOSE_FETCH" ]; then
    sed -i "s/^BB_GIT_VERBOSE_FETCH = .*$/BB_GIT_VERBOSE_FETCH = \"$BB_GIT_VERBOSE_FETCH\"/g" ${BUILDDIR}/conf/local.conf
 fi
 
+if [ -n "$DL_DIR" ]; then
+   echo -e "\n# DL_DIR" >> ${BUILDDIR}/conf/local.conf
+   echo "DL_DIR ?= \"$DL_DIR\"" >> ${BUILDDIR}/conf/local.conf
+fi
+
+if [ -n "$SSTATE_DIR" ]; then
+   echo -e "\n# SSTATE_DIR" >> ${BUILDDIR}/conf/local.conf
+   echo "SSTATE_DIR ?= \"$SSTATE_DIR\"" >> ${BUILDDIR}/conf/local.conf
+fi
+
+if [ -n "$SSTATE_MIRRORS" ]; then
+   echo -e "\n# SSTATE_MIRRORS" >> ${BUILDDIR}/conf/local.conf
+   echo "SSTATE_MIRRORS ?= \"$SSTATE_MIRRORS\"" >> ${BUILDDIR}/conf/local.conf
+fi
+
+
 ##### auto.conf #####
 cat >| ${BUILDDIR}/conf/auto.conf <<EOF
 # This configuration file is dynamically generated every time
