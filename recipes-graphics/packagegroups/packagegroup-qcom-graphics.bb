@@ -21,5 +21,6 @@ RDEPENDS:${PN} = " \
     ${@oe.utils.conditional('VULKAN_LOADER', 'True', 'vulkan-loader', '', d)} \
     qcom-graphicsdevicetree \
     qcom-graphicsdlkm \
+    xcb-util-image \
 "
 
