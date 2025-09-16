@@ -8,6 +8,8 @@ SRCREV = "f22d846e7204c88406c2c0d44ea5b4cdcbf3803b"
 
 S = "${WORKDIR}/git"
 
+RDEPENDS:${PN} += "glibc (>= 2.39)"
+
 do_install() {
     install -d ${D}${bindir}
     install -m 0755 ${S}/rubikpi_config ${D}${bindir}/
