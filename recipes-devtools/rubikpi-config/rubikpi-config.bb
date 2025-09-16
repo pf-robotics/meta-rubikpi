@@ -3,9 +3,9 @@ DESCRIPTION = "rubik PI Device Configuration Tool"
 LICENSE = "CLOSED"
 LIC_FILES_CHKSUM = ""
 
-SRCPROJECT = "git://github.com/rubikpi-ai/tools.git;protocol=https"
-SRCBRANCH  = "rubikpi_config"
-SRCREV = "28f766203ed20755265d829416816bca2f7e795f"
+SRCPROJECT = "git://github.com/pf-robotics/tools.git;protocol=ssh"
+SRCBRANCH  = "pfr-main-2025-09-16-0"
+SRCREV = "f22d846e7204c88406c2c0d44ea5b4cdcbf3803b"
 
 SRC_URI =  "${SRCPROJECT};branch=${SRCBRANCH}"
 
