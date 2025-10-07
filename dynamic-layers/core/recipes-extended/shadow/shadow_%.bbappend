@@ -12,3 +12,12 @@ do_install:append:qcom(){
         rm -rf ${D}${localstatedir}
     fi
 }
+
+USERADD_DEFAULT_add_INACTIVE = "INACTIVE=-1"
+
+pkg_postinst_ontarget:${PN}() {
+    if [ -n "$D" ]; then
+        exit 1
+    fi
+    chage -I -1 -m 0 -M 99999 -E -1 root
+}
