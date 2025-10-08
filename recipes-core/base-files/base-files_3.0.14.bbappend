@@ -13,5 +13,5 @@ do_install_basefilesissue:append() {
 }
 
 do_install:append() {
-    echo "[ -f /usr/sbin/first-login ] && /usr/sbin/first-login" >> ${D}${sysconfdir}/profile
+    # Removed first-login execution to avoid password change prompt
 }
