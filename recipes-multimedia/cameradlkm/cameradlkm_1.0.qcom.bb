@@ -10,7 +10,11 @@ SRCPROJECT = "git://git.codelinaro.org/clo/le/platform/vendor/opensource/camera-
 SRCBRANCH  = "camera-kernel.qclinux.1.0.r1-rel"
 SRCREV     = "f09a43b2584655d75dea39c7fae6ef72d034c645"
 
-SRC_URI = "${SRCPROJECT};branch=${SRCBRANCH};destsuffix=vendor/qcom/opensource/camera-kernel"
+FILESPATH =+ "${THISDIR}/camera-kernel:"
+
+SRC_URI = "${SRCPROJECT};branch=${SRCBRANCH};destsuffix=vendor/qcom/opensource/camera-kernel \
+           file://0001-Initialize-linked-list-structure-variables.patch \
+"
 
 S = "${WORKDIR}/vendor/qcom/opensource/camera-kernel"
 
