@@ -13,6 +13,7 @@ PACKAGES = "${PN}"
 
 RDEPENDS:${PN} = " \
     wpa-supplicant \
+    linux-firmware-rtl8822 \
 "
 
 RDEPENDS:${PN}:append:qcom-custom-bsp = " \
