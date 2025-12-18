@@ -16,8 +16,10 @@ SRCBRANCH  = "kernel.qclinux.1.0.r1-rel"
 SRCREV     = "c4b8666c9a55750817cc1ca7c03819eac84c9ad4"
 
 FILESPATH =+ "${TOPDIR}/../src/vendor/qcom/opensource:"
+FILESEXTRAPATHS:prepend := "${THISDIR}/${BPN}-${PV}:"
 
 SRC_URI = "file://kernel-6.6;protocol=file;name=git \
+           file://rtl8822cu.cfg \
            ${@bb.utils.contains('DISTRO_FEATURES', 'selinux', ' file://selinux.cfg', '', d)} \
            ${@bb.utils.contains('DISTRO_FEATURES', 'selinux', ' file://selinux_debug.cfg', '', d)} \
            ${@bb.utils.contains('DISTRO_FEATURES', 'smack', ' file://smack.cfg', '', d)} \
@@ -48,6 +50,9 @@ KERNEL_CONFIG_FRAGMENTS:append = " ${@bb.utils.contains('DISTRO_FEATURES', 'smac
 
 # Add support for RUBIK Pi 3
 KERNEL_CONFIG_FRAGMENTS:append = " ${S}/arch/arm64/configs/rubikpi3.config"
+
+# Add support for RTL8822CU WiFi/Bluetooth
+KERNEL_CONFIG_FRAGMENTS:append = " ${WORKDIR}/rtl8822cu.cfg"
 
 # List of kernel modules that will be auto-loaded for Qualcomm platforms.
 
