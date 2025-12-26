@@ -15,5 +15,6 @@ PACKAGES = ' \
 
 RDEPENDS:${PN} = "\
     packagegroup-rubikpi-devicetree \
+    pfr-ansible-bootstrap \
     "
 
