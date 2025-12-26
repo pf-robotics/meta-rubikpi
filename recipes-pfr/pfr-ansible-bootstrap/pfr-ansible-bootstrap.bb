@@ -6,8 +6,8 @@ DESCRIPTION = "Scripts, systemd services, and udev rules for software update and
 LICENSE = "CLOSED"
 
 # Source from sr01 repository (synced via repo)
-# Path relative to Yocto workspace root
-SR01_PATH ?= "${TOPDIR}/../../sr01"
+# TOPDIR is build-qcom-wayland, so ../sr01 reaches the sr01 directory
+SR01_PATH ?= "${TOPDIR}/../sr01"
 
 SRC_URI = ""
 S = "${WORKDIR}"
