@@ -3,7 +3,7 @@
 ACTION="$1"
 DEVICE="$2"
 
-MOUNT_DIR="/mnt/$DEVICE"
+MOUNT_DIR="/var/opt/pfr/external"
 BOARD_DIR="/dev/$DEVICE"
 
 echo "ACTION: $ACTION"
@@ -18,7 +18,6 @@ case "$ACTION" in
 		;;
 	remove)
 		echo " BOARD_DIR: $BOARD_DIR"
-		umount "$BOARD_DIR"
-		rm -rf "$MOUNT_DIR"
+		umount "$MOUNT_DIR"
 		;;
 esac
