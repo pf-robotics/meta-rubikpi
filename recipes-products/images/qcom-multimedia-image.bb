@@ -20,6 +20,7 @@ CORE_IMAGE_BASE_INSTALL += " \
     first-login \
     usb-scripts-automount \
     rubikpi3-thermal \
+    pfr-ansible-bootstrap \
 "
 
 IMAGE_INSTALL:append = " \
