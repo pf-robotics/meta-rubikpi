@@ -83,7 +83,7 @@ EXTRA_IMAGECMD:ota-ext4:append = " -O encrypt,stable_inodes"
 IMAGE_TYPES_MASKED = "tar.gz"
 
 # Default serial console for QCOM devices
-SERIAL_CONSOLES ??= "115200;ttyMSM0"
+# SERIAL_CONSOLES ??= "115200;ttyMSM0"
 
 INITRAMFS_MAXSIZE = "393216"
 
