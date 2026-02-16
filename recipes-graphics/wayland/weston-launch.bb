@@ -10,7 +10,8 @@ PACKAGE_ARCH = "${SOC_ARCH}"
 
 S = "${WORKDIR}"
 SRC_URI = " file://init_qti.service \
-            file://init_qti"
+            file://init_qti \
+            file://PFR_LOGO_BLACK.png"
 
 DISPLAY_SERVICE_FILENAME = "init_qti.service"
 FILES:${PN} += "/data/*"
