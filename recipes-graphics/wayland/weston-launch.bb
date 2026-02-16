@@ -17,6 +17,7 @@ FILES:${PN} += "/data/*"
 
 do_install() {
     if ${@bb.utils.contains('DISTRO_FEATURES', 'systemd', 'true', 'false', d)}; then
+        install -m 0755 ${S}/PFR_LOGO_BLACK.png -D ${D}${sysconfdir}/PFR_LOGO_BLACK.png
         install -m 0755 ${S}/init_qti -D ${D}${sysconfdir}/initscripts/init_qti_display
         install -d ${D}/etc/systemd/system/
         install -m 0755 ${S}/${DISPLAY_SERVICE_FILENAME} -D ${D}${sysconfdir}/systemd/system/init_display.service
