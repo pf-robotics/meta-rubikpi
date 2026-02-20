@@ -8,17 +8,16 @@ DEPENDS += "linux-kernel-headers-install-native"
 
 FILESPATH =+ "${THISDIR}/camera-kernel:"
 
-LOCAL_CAMERA_KERNEL_DIR ?= "${TOPDIR}/../src/vendor/qcom/opensource/kernel-6.6/techpack/camera-kernel"
-
-SRC_URI = "file://0001-Initialize-linked-list-structure-variables.patch"
-
+LOCAL_DRV_SRC = "${TOPDIR}/../src/vendor/qcom/opensource/kernel-6.6/techpack/camera-kernel"
 S = "${WORKDIR}/vendor/qcom/opensource/camera-kernel"
-do_unpack[cleandirs] = "${S}"
 
+do_unpack[cleandirs] = "${S}"
 do_unpack() {
     install -d ${S}
-    cp -aL ${LOCAL_CAMERA_KERNEL_DIR}/. ${S}/
+    cp -aL ${LOCAL_DRV_SRC}/. ${S}/
 }
+
+SRC_URI = "file://0001-Initialize-linked-list-structure-variables.patch"
 
 MODULES_INSTALL_TARGET = "modules_install headers_install"
 
