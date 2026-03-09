@@ -17,8 +17,6 @@ do_unpack() {
     cp -aL ${LOCAL_DRV_SRC}/. ${S}/
 }
 
-SRC_URI = "file://0001-Initialize-linked-list-structure-variables.patch"
-
 MODULES_INSTALL_TARGET = "modules_install headers_install"
 
 COMPATIBLE_MACHINE = "qcm6490|qcs9100|qcs8300"
