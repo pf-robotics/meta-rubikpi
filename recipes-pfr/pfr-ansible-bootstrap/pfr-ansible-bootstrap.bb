@@ -60,7 +60,7 @@ do_install() {
 
     # Install udev rules
     install -d ${D}${sysconfdir}/udev/rules.d
-    install -m 0644 ${USBMOUNT_FILES}/10-usbstorage-mount.rules ${D}${sysconfdir}/udev/rules.d/
+    install -m 0644 ${USBMOUNT_FILES}/90-usbstorage-mount.rules ${D}${sysconfdir}/udev/rules.d/
 }
 
 FILES:${PN} = "\
