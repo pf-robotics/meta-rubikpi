@@ -2,7 +2,7 @@
 ACTION=="add", ATTR{soc_id}=="497|498|575", \
                RUN+="/sbin/modprobe camera_qcm6490", \
                RUN+="/bin/sleep 1", \
-               RUN+="/sbin/modprobe tof_cam_drv"
+               RUN+="/sbin/modprobe tof_cam"
 # For Lemans
 ACTION=="add", ATTR{soc_id}=="534|667|676", \
                RUN+="/bin/sh -c '/sbin/modprobe camera_qcs9100'"
