@@ -13,7 +13,7 @@ do_unpack() {
     cp -aL ${LOCAL_DRV_SRC}/. ${S}/
 }
 
-EXTRA_OEMAKE += "CAMERA_KERNEL_ROOT='${TOPDIR}/../src/vendor/qcom/opensource/kernel-6.6/techpack/camera-kernel'"
+EXTRA_OEMAKE += "CAMERA_KERNEL_ROOT='${TOPDIR}/../src/camera-kernel'"
 
 RPROVIDES:${PN} += "kernel-module-setaku-tof"
 MAKE_TARGETS = "all"
