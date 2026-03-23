@@ -8,7 +8,7 @@ DEPENDS += "linux-kernel-headers-install-native"
 
 FILESPATH =+ "${THISDIR}/camera-kernel:"
 
-LOCAL_DRV_SRC = "${TOPDIR}/../src/vendor/qcom/opensource/kernel-6.6/techpack/camera-kernel"
+LOCAL_DRV_SRC = "${TOPDIR}/../src/camera-kernel"
 S = "${WORKDIR}/vendor/qcom/opensource/camera-kernel"
 
 do_unpack[cleandirs] = "${S}"
