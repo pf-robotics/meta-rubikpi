@@ -18,17 +18,16 @@ BOOTBINARIES:qcs9100 = "QCS9100_bootbinaries"
 BOOTBINARIES:qcs8300 = "QCS8300_bootbinaries"
 BOOTBINARIES:qcs615  = "QCS615_bootbinaries"
 
-BOOTBINARIES_PATH = "${WORKDIR}/git/${BUILD_ID}/${BIN_PATH}"
-
 do_configure[noexec] = "1"
 do_compile[noexec] = "1"
 
 python do_install() {
 
-    fw_file = d.getVar("BOOTBINARIES")
-    fw_path = d.getVar("BOOTBINARIES_PATH")
-
-    firmware_install(d, fw_file, fw_path)
+    workdir = d.getVar('WORKDIR')
+    fw_folder = d.getVar("BOOTBINARIES")
+    
+    import shutil
+    shutil.copytree(f'{workdir}/{fw_folder}', d.getVar('D'), dirs_exist_ok=True)
 
     # Remove partition xmls.
     for item in os.listdir(d.getVar('D')):
