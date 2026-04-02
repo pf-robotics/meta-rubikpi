@@ -16,6 +16,10 @@ inherit image
 IMAGE_FSTYPES = "vfat"
 IMAGE_FSTYPES_DEBUGFS = ""
 
+# UFS requires logical sector size >= 4096; force 4096-byte sectors so UEFI
+# can read the FAT filesystem from the dtb_a partition.
+EXTRA_IMAGECMD:vfat = "-S 4096"
+
 ROOTFS_SIZE = "65536"
 
 LINGUAS_INSTALL = ""
