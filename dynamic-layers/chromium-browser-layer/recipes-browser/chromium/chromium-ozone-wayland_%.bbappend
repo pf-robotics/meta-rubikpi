@@ -5,8 +5,6 @@ SRC_URI:append:qcom = "\
     file://fix-remove-gpu-dri.patch   \
     file://fix-remove-gpu-sandbox-dri.patch \
 "
-GN_ARGS:remove = "symbol_level=0"
-GN_ARGS:append = "symbol_level=1"
 
 GN_ARGS += "\
         use_dri=false \
