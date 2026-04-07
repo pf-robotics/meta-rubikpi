@@ -38,6 +38,8 @@ do_install() {
     install -d ${D}${datadir}/pfr/bin
     install -m 0755 ${UPDATE_FILES}/inotify-sw-updater.sh ${D}${datadir}/pfr/bin/
     install -m 0755 ${UPDATE_FILES}/run-sw-update.sh ${D}${datadir}/pfr/bin/
+    install -m 0755 ${UPDATE_FILES}/fb-progress.py ${D}${datadir}/pfr/bin/
+    install -m 0644 ${UPDATE_FILES}/fb_draw.py ${D}${datadir}/pfr/bin/
 
     # Fix paths in scripts for OSTree compatibility (/opt/pfr/bin -> /usr/share/pfr/bin)
     sed -i 's|/opt/pfr/bin|${datadir}/pfr/bin|g' ${D}${datadir}/pfr/bin/inotify-sw-updater.sh
