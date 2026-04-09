@@ -1,0 +1,7 @@
+; camxoverridesettings.txt
+; CamX override settings for PFR
+; This file is placed at /var/lib/camera/ and is writable at runtime.
+; Edits here survive OSTree updates (initial copy only; use C in tmpfiles.d).
+;
+; Example:
+; logInfoMask=0x1
