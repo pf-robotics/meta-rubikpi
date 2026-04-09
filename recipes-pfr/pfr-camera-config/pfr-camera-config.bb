@@ -17,8 +17,8 @@ do_install() {
     # on first boot (C = copy only if destination does not yet exist).
     install -d ${D}${libdir}/tmpfiles.d
     cat > ${D}${libdir}/tmpfiles.d/pfr-camera-config.conf << 'EOF'
-d /var/lib/camera 0755 root root -
-C /var/lib/camera/camxoverridesettings.txt - - - - /usr/share/camera/camxoverridesettings.txt
+d /var/cache/camera 0755 root root -
+C /var/cache/camera/camxoverridesettings.txt - - - - /usr/share/camera/camxoverridesettings.txt
 EOF
 }
 
