@@ -1,0 +1,4 @@
+# Override QNN/QAIRT SDK version to 2.43.0 for Genie LLM deployment
+# (Qualcomm AI Hub requires QAIRT 2.41+)
+QNPSDK_SRC_VER = "2.43.0.260128"
+QNPSDK_SRC_SHID = "e3fce35419310bf80aa2947442a4b39366d80237c4bd72946b77832f71b75223"
