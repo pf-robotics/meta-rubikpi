@@ -1,6 +1,17 @@
 require qcom-console-image.bb
 inherit populate_sdk_qt5
 
+# PFR version embedding: pass QLIPFR_VERSION via BB_ENV_PASSTHROUGH_ADDITIONS in CI
+QLIPFR_VERSION ?= "dev"
+ROOTFS_POSTPROCESS_COMMAND:append = " write_pfr_release_file;"
+
+write_pfr_release_file() {
+    cat > ${IMAGE_ROOTFS}${sysconfdir}/pfr-release << EOFPFR
+QLIPFR_VERSION="${QLIPFR_VERSION}"
+BUILD_DATE="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
+EOFPFR
+}
+
 SUMMARY = "Basic Wayland image with Weston"
 
 LICENSE = "BSD-3-Clause-Clear"
