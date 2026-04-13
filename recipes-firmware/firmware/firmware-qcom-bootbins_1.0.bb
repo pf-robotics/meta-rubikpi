@@ -6,8 +6,6 @@ COMPATIBLE_MACHINE = "qcm6490|qcs9100|qcs8300|qcs615"
 
 PROVIDES += "virtual/bootbins"
 
-SRC_URI = "file://${FWZIP_PATH}/${BOOTBINARIES}.zip"
-
 include firmware-common.inc
 
 MATCHED_MACHINE = "${@get_matching_machine(d)}"
@@ -22,35 +20,22 @@ do_configure[noexec] = "1"
 do_compile[noexec] = "1"
 
 python do_install() {
-
-    workdir = d.getVar('WORKDIR')
-    fw_folder = d.getVar("BOOTBINARIES")
-    
-    import shutil
-    shutil.copytree(f'{workdir}/{fw_folder}', d.getVar('D'), dirs_exist_ok=True)
-
-    # Remove partition xmls.
-    for item in os.listdir(d.getVar('D')):
-        name, ext = os.path.splitext(item)
-        if name.startswith('partition') and ext == '.xml':
-            os.remove(os.path.join(d.getVar('D'), item))
-        if name.startswith('contents') and ext == '.xml':
-            os.remove(os.path.join(d.getVar('D'), item))
-
+    # nothing to do
+    pass
 }
 
 inherit deploy
 
 do_deploy() {
-    find "${D}" -maxdepth 1 -name '*.bin' -exec install -m 0644 {} ${DEPLOYDIR} \;
-    find "${D}" -maxdepth 1 -name '*.elf' -exec install -m 0644 {} ${DEPLOYDIR} \;
-    find "${D}" -maxdepth 1 -name '*.fv' -exec install -m 0644 {} ${DEPLOYDIR} \;
-    find "${D}" -maxdepth 1 -name '*.mbn' -exec install -m 0644 {} ${DEPLOYDIR} \;
-    find "${D}" -maxdepth 1 -name '*.melf' -exec install -m 0644 {} ${DEPLOYDIR} \;
+    find "${FWZIP_PATH}/${BOOTBINARIES}" -maxdepth 1 -name '*.bin' -exec install -m 0644 {} ${DEPLOYDIR} \;
+    find "${FWZIP_PATH}/${BOOTBINARIES}" -maxdepth 1 -name '*.elf' -exec install -m 0644 {} ${DEPLOYDIR} \;
+    find "${FWZIP_PATH}/${BOOTBINARIES}" -maxdepth 1 -name '*.fv' -exec install -m 0644 {} ${DEPLOYDIR} \;
+    find "${FWZIP_PATH}/${BOOTBINARIES}" -maxdepth 1 -name '*.mbn' -exec install -m 0644 {} ${DEPLOYDIR} \;
+    find "${FWZIP_PATH}/${BOOTBINARIES}" -maxdepth 1 -name '*.melf' -exec install -m 0644 {} ${DEPLOYDIR} \;
     # Copy sail_nor files to deploydir
-    for f in $(find "${D}/sail_nor" -type f -printf '%P ') ; do
+    for f in $(find "${FWZIP_PATH}/${BOOTBINARIES}/sail_nor" -type f -printf '%P ') ; do
         install -d ${DEPLOYDIR}/sail_nor
-        install -m 0644 ${D}/sail_nor/$f ${DEPLOYDIR}/sail_nor/$f
+        install -m 0644 ${FWZIP_PATH}/${BOOTBINARIES}/sail_nor/$f ${DEPLOYDIR}/sail_nor/$f
     done
 }
 addtask deploy before do_build after do_install
