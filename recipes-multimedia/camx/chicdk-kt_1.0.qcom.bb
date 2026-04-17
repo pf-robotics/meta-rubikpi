@@ -7,13 +7,11 @@ DESCRIPTION = "Camx"
 
 DEPENDS += "syslog-plumber glib-2.0 property-vault camx-kt virtual/libgles2 virtual/egl adrenocl qcom-fastcv-binaries"
 
-QCM6490_SHA256SUM = "3c46ee1ab56f91dd17b17c9f71d834d6d609bd5a6f6eb0658945314d810858fc"
-
-SRC_URI[qcm6490.sha256sum] = "${QCM6490_SHA256SUM}"
-
-SRC_URI  = " \
-    file://${TOPDIR}/../src/vendor/qcom/proprietary/chi-cdk-kt/${BPN}_${PV}_${PBT_ARCH}.tar.gz;name=${PBT_ARCH} \
-"
+do_unpack[cleandirs] = "${S}"
+do_unpack() {
+    install -d ${S}
+    cp -aL ${TOPDIR}/../src/vendor/qcom/proprietary/chi-cdk-kt/. ${S}/
+}
 
 FILES:${PN} = "\
     /usr/lib/* \
@@ -23,7 +21,6 @@ FILES:${PN} = "\
     /lib/firmware/* \
     /system/etc/camera/* "
 FILES:${PN}-dev = ""
-
 
 INSANE_SKIP = "1"
 INSANE_SKIP:${PN} = "already-stripped"
