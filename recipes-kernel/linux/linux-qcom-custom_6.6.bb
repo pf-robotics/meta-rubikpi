@@ -28,6 +28,7 @@ SRC_URI = "file://kernel-6.6;protocol=file;name=git \
            file://0004-QCLINUX-net-stmmac-Add-EEPROM-support-to-driver.patch \
            file://0005-kernel-arm64-dts-qcom-enable-EEPROM-Client-Driver.patch \
            file://0006-kernel-config-qcom-enable-AT24-EEPROM-driver.patch \
+           file://pfr-fde.cfg \
            "
 
 S = "${WORKDIR}/kernel-6.6"
@@ -48,6 +49,9 @@ KERNEL_CONFIG_FRAGMENTS:append = " ${@bb.utils.contains('DISTRO_FEATURES', 'smac
 
 # Add support for RUBIK Pi 3
 KERNEL_CONFIG_FRAGMENTS:append = " ${S}/arch/arm64/configs/rubikpi3.config"
+
+# PFR Full-Disk Encryption (dm-crypt / LUKS / kernel keyring)
+KERNEL_CONFIG_FRAGMENTS:append = " ${WORKDIR}/pfr-fde.cfg"
 
 # List of kernel modules that will be auto-loaded for Qualcomm platforms.
 
