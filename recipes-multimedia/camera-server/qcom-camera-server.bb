@@ -18,7 +18,8 @@ SRCBRANCH  = "le-services.lnx.1.0.r1-rel"
 SRCREV     = "bc8d77091b55ce79b8010e8d27f6c3009cdfa9bd"
 
 SRC_URI  = "${SRCPROJECT};branch=${SRCBRANCH};destsuffix=le-camera-server \
-            file://cam-server-env"
+            file://cam-server-env \
+            file://cam-server-tmpfiles.conf"
 
 S = "${WORKDIR}/le-camera-server"
 
@@ -48,6 +49,11 @@ do_install:append () {
         # enable the service for multi-user.target
         ln -sf /etc/systemd/system/cam-server.service \
            ${D}/etc/systemd/system/multi-user.target.wants/cam-server.service
+        # Pre-create /tmp/socket{,/cam_server} via systemd-tmpfiles so the
+        # unit's unprivileged ExecStartPre mkdir cannot race with other
+        # processes creating /tmp/socket as root.
+        install -D -m 0644 ${WORKDIR}/cam-server-tmpfiles.conf \
+            ${D}${nonarch_libdir}/tmpfiles.d/cam-server.conf
     fi
     install ${WORKDIR}/cam-server-env -D ${D}/${sysconfdir}/cam-server-env
 }
@@ -55,6 +61,7 @@ do_install:append () {
 FILES:${PN}-cam-server-dbg = "${bindir}/.debug/cam-server"
 FILES:${PN}-cam-server     = "${bindir}/cam-server"
 FILES:${PN}-cam-server    += "/etc/systemd/system/"
+FILES:${PN}-cam-server    += "${nonarch_libdir}/tmpfiles.d/cam-server.conf"
 
 FILES:${PN}-libqmmf_recorder_client-dbg    = "${libdir}/.debug/libqmmf_recorder_client.*"
 FILES:${PN}-libqmmf_recorder_client        = "${libdir}/libqmmf_recorder_client.so.*"
