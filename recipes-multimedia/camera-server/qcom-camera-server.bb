@@ -62,6 +62,11 @@ FILES:${PN}-cam-server-dbg = "${bindir}/.debug/cam-server"
 FILES:${PN}-cam-server     = "${bindir}/cam-server"
 FILES:${PN}-cam-server    += "/etc/systemd/system/"
 FILES:${PN}-cam-server    += "${nonarch_libdir}/tmpfiles.d/cam-server.conf"
+# ${PN}-cam-server is declared via FILES but never added to PACKAGES, so its
+# files fall through to ${PN}. Default FILES:${PN} covers /etc via ${sysconfdir}
+# but not /usr/lib/tmpfiles.d, so the tmpfiles.d drop-in was tripping the
+# installed-vs-shipped QA check. Claim it on ${PN} explicitly.
+FILES:${PN}              += "${nonarch_libdir}/tmpfiles.d/cam-server.conf"
 
 FILES:${PN}-libqmmf_recorder_client-dbg    = "${libdir}/.debug/libqmmf_recorder_client.*"
 FILES:${PN}-libqmmf_recorder_client        = "${libdir}/libqmmf_recorder_client.so.*"
