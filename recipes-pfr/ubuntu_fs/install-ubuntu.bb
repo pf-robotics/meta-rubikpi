@@ -11,8 +11,9 @@ SRC_URI += "\
 
 FILES:${PN} += "\
     ${bindir}/*.sh \
-    ${systemd_system_unitdir}/mount-ubuntu.service \
-    ${systemd_system_unitdir}/multi-user.target.wants/mount-ubuntu.service \
+    /etc/systemd/system/mount-ubuntu.service \
+    /etc/systemd/system/multi-user.target.wants/mount-ubuntu.service \
+    /root/ubuntu24.img \
 "
 
 do_install() {
@@ -21,14 +22,14 @@ do_install() {
     install -m 0755 ${WORKDIR}/*.sh ${D}${bindir}/
 
     # Install the systemd service
-    install -d ${D}${systemd_system_unitdir}
-    install -m 0644 ${WORKDIR}/mount-ubuntu.service ${D}${systemd_system_unitdir}/
+    install -d ${D}/etc/systemd/system/
+    install -m 0644 ${WORKDIR}/mount-ubuntu.service ${D}/etc/systemd/system/
 
     # Enable the service
-    install -d ${D}${systemd_system_unitdir}/multi-user.target.wants
-    ln -sf /etc/systemd/system/mount-ubuntu.service ${D}${systemd_system_unitdir}/multi-user.target.wants/mount-ubuntu.service
+    install -d ${D}/etc/systemd/system/multi-user.target.wants
+    ln -sf /etc/systemd/system/mount-ubuntu.service ${D}/etc/systemd/system/multi-user.target.wants/mount-ubuntu.service
 
     # install mini_ubuntu image
-    # install -d ${D}/usr/share/pfr
-    # cp ${TOPDIR}/../mini_ubuntu24.img ${D}/usr/share/pfr/ubuntu24.img
+    install -d ${D}/root
+    cp ${TOPDIR}/../mini_ubuntu24.img ${D}/root/ubuntu24.img
 }
