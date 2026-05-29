@@ -10,12 +10,14 @@ PACKAGE_ARCH = "${SOC_ARCH}"
 
 S = "${WORKDIR}"
 SRC_URI = " file://init_qti.service \
-            file://init_qti"
+            file://init_qti\
+            file://PFR_LOGO_BLACK.png"
 
 DISPLAY_SERVICE_FILENAME = "init_qti.service"
 FILES:${PN} += "/data/*"
 
 do_install() {
+    install -m 0755 ${S}/PFR_LOGO_BLACK.png -D ${D}${sysconfdir}/PFR_LOGO_BLACK.png
     if ${@bb.utils.contains('DISTRO_FEATURES', 'systemd', 'true', 'false', d)}; then
         install -m 0755 ${S}/init_qti -D ${D}${sysconfdir}/initscripts/init_qti_display
         install -d ${D}/etc/systemd/system/
