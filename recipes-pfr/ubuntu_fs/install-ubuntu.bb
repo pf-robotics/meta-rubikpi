@@ -9,6 +9,12 @@ SRC_URI += "\
     file://mount-ubuntu.service \
 "
 
+FILES:${PN} += "\
+    ${bindir}/*.sh \
+    ${systemd_system_unitdir}/mount-ubuntu.service \
+    ${systemd_system_unitdir}/multi-user.target.wants/mount-ubuntu.service \
+"
+
 do_install() {
     # Install the scripts
     install -d ${D}${bindir}
