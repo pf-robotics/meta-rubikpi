@@ -95,9 +95,6 @@ OSTREE_DEPLOY_DEVICETREE = "0"
 OSTREE_DEVICETREE = "${KERNEL_DEVICETREE}"
 OSTREE_MULTI_DEVICETREE_SUPPORT = "0"
 
-# Seed persistent root home on first flash (kept outside OSTree commits)
-INHERIT += "${@bb.utils.contains('DISTRO_FEATURES', 'sota', 'pfr-seed-roothome', '', d)}"
-
 # Set OPKGLIBDIR to /etc to support OSTree for OTA
 OPKGLIBDIR ?= "${@bb.utils.contains('DISTRO_FEATURES', 'sota', '/etc', '/var/lib', d)}"
 
