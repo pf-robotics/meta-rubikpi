@@ -11,7 +11,9 @@ mount -o bind /proc /mnt/ubuntu24/proc
 mount -o bind /tmp /mnt/ubuntu24/tmp
 
 # configs
-mount -o bind /var/opt/pfr /mnt/ubuntu24/var/opt/pfr
+mkdir -p /opt/pfr /mnt/ubuntu24/opt/pfr
+mount -o bind /opt/pfr /mnt/ubuntu24/opt/pfr
+mkdir -p /var/cache/camera /mnt/ubuntu24/var/cache/camera
 mount -o bind /var/cache/camera /mnt/ubuntu24/var/cache/camera
 # libs
 touch /mnt/ubuntu24/usr/lib/libadreno_utils.so.1
