@@ -9,6 +9,8 @@ mount -o bind /dev/pts /mnt/ubuntu24/dev/pts
 mount -o bind /sys /mnt/ubuntu24/sys
 mount -o bind /proc /mnt/ubuntu24/proc
 mount -o bind /tmp /mnt/ubuntu24/tmp
+# services sockets
+mount -o bind /run /mnt/ubuntu24/run
 
 # configs
 mkdir -p /opt/pfr /mnt/ubuntu24/opt/pfr
