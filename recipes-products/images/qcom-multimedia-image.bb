@@ -19,7 +19,6 @@ CORE_IMAGE_BASE_INSTALL += " \
     packagegroup-qcom-test-pkgs \
     first-login \
     rubikpi3-thermal \
-    pfr-ansible-bootstrap \
 "
 
 IMAGE_INSTALL:append = " \
