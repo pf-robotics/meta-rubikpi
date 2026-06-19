@@ -1,6 +1,9 @@
 # rootfs
 mkdir -p /mnt/ubuntu24
-mount /root/ubuntu24.img /mnt/ubuntu24
+if ! mount /root/ubuntu24.img /mnt/ubuntu24; then
+    echo "Failed to mount /root/ubuntu24.img to /mnt/ubuntu24"
+    exit 1
+fi
 
 # sys resources
 mount -o bind /dev /mnt/ubuntu24/dev

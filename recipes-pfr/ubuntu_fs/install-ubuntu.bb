@@ -32,4 +32,8 @@ do_install() {
     # install mini_ubuntu image
     install -d ${D}/root
     cp ${TOPDIR}/../mini_ubuntu24.img ${D}/root/ubuntu24.img
+    if [ $(stat -c%s "${D}/root/ubuntu24.img") -lt 1048576 ]; then
+        echo "Oh no! The installed ubuntu24.img is too small... Please check the source image."
+        exit 1
+    fi
 }
