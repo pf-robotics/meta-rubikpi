@@ -11,7 +11,8 @@ FILESPATH =+ "${THISDIR}/camera-kernel:"
 LOCAL_DRV_SRC = "${TOPDIR}/../src/camera-kernel"
 S = "${WORKDIR}/vendor/qcom/opensource/camera-kernel"
 
-do_unpack[nostamp] = "1" # do not cache
+# do not cache
+do_unpack[nostamp] = "1"
 do_unpack[cleandirs] = "${S}"
 do_unpack() {
     install -d ${S}

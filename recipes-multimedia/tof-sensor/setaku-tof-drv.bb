@@ -7,7 +7,8 @@ LIC_FILES_CHKSUM = "file://${COMMON_LICENSE_DIR}/${LICENSE};md5=801f80980d171dd6
 LOCAL_DRV_SRC = "${TOPDIR}/../src/tof_cam_drv"
 S = "${WORKDIR}/tof_cam_drv"
 
-do_unpack[nostamp] = "1" # do not cache
+# do not cache
+do_unpack[nostamp] = "1"
 do_unpack[cleandirs] = "${S}"
 do_unpack() {
     install -d ${S}
