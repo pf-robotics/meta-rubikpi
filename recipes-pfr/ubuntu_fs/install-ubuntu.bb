@@ -16,7 +16,8 @@ FILES:${PN} += "\
     /root/ubuntu24.img \
 "
 
-do_install[nostamp] = "1" # do not cache the result, run each time
+# do not cache, run every time to ensure the latest image is copied
+do_install[nostamp] = "1"
 do_install() {
     # Install the scripts
     install -d ${D}${bindir}
