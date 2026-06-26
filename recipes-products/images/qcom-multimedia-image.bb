@@ -34,6 +34,7 @@ CORE_IMAGE_BASE_INSTALL += " \
     pfr-camera-config \
     pfr-fan-watchdog \
     pfr-read-capsule-ver \
+    install-ubuntu \
 "
 
 IMAGE_INSTALL:append = " \

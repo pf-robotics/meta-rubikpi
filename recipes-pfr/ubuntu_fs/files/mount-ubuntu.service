@@ -1,0 +1,14 @@
+[Unit]
+Description=Mount and start chroot SSH
+After=network.target local-fs.target
+Requires=local-fs.target
+
+[Service]
+Type=oneshot
+ExecStart=/bin/bash -c '/bin/mount_ubuntu.sh && chroot /mnt/ubuntu24 /init_ubuntu.sh'
+RemainAfterExit=yes
+ExecStop=/bin/bash -c 'chroot /mnt/ubuntu24 /stop_ubuntu.sh ; /bin/kill_ubuntu.sh ; /bin/unmount_ubuntu.sh'
+TimeoutStopSec=infinity
+
+[Install]
+WantedBy=multi-user.target
