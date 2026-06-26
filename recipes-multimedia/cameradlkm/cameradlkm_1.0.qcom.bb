@@ -6,17 +6,17 @@ LIC_FILES_CHKSUM = "file://${COMMON_LICENSE_DIR}/${LICENSE};md5=801f80980d171dd6
 
 DEPENDS += "linux-kernel-headers-install-native"
 
-SRCPROJECT = "git://git.codelinaro.org/clo/le/platform/vendor/opensource/camera-kernel.git;protocol=https"
-SRCBRANCH  = "camera-kernel.qclinux.1.0.r1-rel"
-SRCREV     = "f09a43b2584655d75dea39c7fae6ef72d034c645"
-
 FILESPATH =+ "${THISDIR}/camera-kernel:"
 
-SRC_URI = "${SRCPROJECT};branch=${SRCBRANCH};destsuffix=vendor/qcom/opensource/camera-kernel \
-           file://0001-Initialize-linked-list-structure-variables.patch \
-"
-
+LOCAL_DRV_SRC = "${TOPDIR}/../src/camera-kernel"
 S = "${WORKDIR}/vendor/qcom/opensource/camera-kernel"
+
+do_unpack[nostamp] = "1" # do not cache
+do_unpack[cleandirs] = "${S}"
+do_unpack() {
+    install -d ${S}
+    cp -aL ${LOCAL_DRV_SRC}/. ${S}/
+}
 
 MODULES_INSTALL_TARGET = "modules_install headers_install"
 
