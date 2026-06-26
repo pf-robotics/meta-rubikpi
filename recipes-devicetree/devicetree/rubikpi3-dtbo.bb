@@ -12,7 +12,7 @@ SRC_URI = "file://thundercomm/rubikpi3;protocol=file;name=rubikpi3"
 S = "${WORKDIR}/thundercomm/rubikpi3"
 
 DTC := "${KBUILD_OUTPUT}/scripts/dtc/dtc"
-CAMERA_INCLUDE := "${STAGING_KERNEL_DIR}/techpack/camera-kernel/camera/"
+CAMERA_INCLUDE := "${TOPDIR}/../src/camera-kernel/camera"
 KERNEL_INCLUDE := "${STAGING_KERNEL_DIR}/include/  -I ${CAMERA_INCLUDE}"
 EXTRA_OEMAKE += "DTC='${DTC}' KERNEL_INCLUDE='${KERNEL_INCLUDE}'"
 
