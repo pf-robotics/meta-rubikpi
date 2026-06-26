@@ -32,6 +32,7 @@ CORE_IMAGE_BASE_INSTALL += " \
     rubikpi3-thermal \
     pfr-ansible-bootstrap \
     pfr-camera-config \
+    install-ubuntu \
 "
 
 IMAGE_INSTALL:append = " \
