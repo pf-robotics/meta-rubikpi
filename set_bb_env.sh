@@ -289,9 +289,6 @@ https://.*/.*/ https://codelinaro.jfrog.io/artifactory/codelinaro-le/ \
 "
 
 EOF
-if [ -e $WS/layers/meta-qcom-distro/conf/site.conf ]; then
-    cat $WS/layers/meta-qcom-distro/conf/site.conf >> ${BUILDDIR}/conf/site.conf
-fi
 
 cat <<EOF
 
