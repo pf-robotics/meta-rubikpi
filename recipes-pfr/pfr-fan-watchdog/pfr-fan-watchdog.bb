@@ -3,6 +3,7 @@ DESCRIPTION = "This recipe installs the fan watchdog service and scripts to moni
 LICENSE = "CLOSED"
 
 SRC_URI += "\
+    file://fan-watchdog.py \
     file://fan-watchdog.service \
 "
 
