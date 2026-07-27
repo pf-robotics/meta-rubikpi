@@ -4,10 +4,8 @@ After=network.target local-fs.target
 Requires=local-fs.target
 
 [Service]
-Type=oneshot
+Type=simple
 ExecStart=/usr/bin/python3 /bin/fan-watchdog.py
-RemainAfterExit=yes
-TimeoutStopSec=infinity
 
 [Install]
 WantedBy=multi-user.target
