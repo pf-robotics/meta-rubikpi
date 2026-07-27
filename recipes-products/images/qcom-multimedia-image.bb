@@ -47,6 +47,7 @@ IMAGE_INSTALL:append = " \
     libcec \
     cec-client \
     python3-pyqt5 python3-pytest-qt \
+    python3-gpiod \
     iotop lsof \
     var-rubikpi-config-mount \
     wiringrp wiringrp-python wiringrp-gpio \
