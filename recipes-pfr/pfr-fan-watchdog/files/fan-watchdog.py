@@ -4,6 +4,8 @@ from gpiod.line import Direction, Value
 import os
 import time
 
+DEFAULT_PWM_VALUE = 128
+
 # get fan 12v control line
 fan_12v_config = {8: gpiod.LineSettings(direction=Direction.OUTPUT)}
 fan_12v_line = gpiod.request_lines("/dev/gpiochip2", consumer="demo", config=fan_12v_config)
@@ -19,6 +21,7 @@ else:
     raise RuntimeError("max31760 controller not found")
 
 pwm1_enable_fp = open(f"{max31760_controller_path}/pwm1_enable", "wb", buffering=0)
+pwm1_value_fp = open(f"{max31760_controller_path}/pwm1", "wb", buffering=0)
 fan1_enable_fp = open(f"{max31760_controller_path}/fan1_enable", "wb", buffering=0)
 fan1_fault_status_fp = open(f"{max31760_controller_path}/fan1_fault", "rb", buffering=0)
 fan1_input_fp = open(f"{max31760_controller_path}/fan1_input", "rb", buffering=0)
@@ -26,9 +29,11 @@ fan1_input_fp = open(f"{max31760_controller_path}/fan1_input", "rb", buffering=0
 # initialize fan control
 fan1_enable_fp.write(b"0") # clear error status
 fan1_enable_fp.seek(0)
-fan_12v_line.set_value(8, Value.ACTIVE) # turn on 12v
 pwm1_enable_fp.write(b"1") # manual mode
 pwm1_enable_fp.seek(0)
+pwm1_value_fp.write(str(DEFAULT_PWM_VALUE).encode()) # set default pwm value
+pwm1_value_fp.seek(0)
+fan_12v_line.set_value(8, Value.ACTIVE) # turn on 12v
 fan1_enable_fp.write(b"1") # enable fan
 fan1_enable_fp.seek(0)
 
