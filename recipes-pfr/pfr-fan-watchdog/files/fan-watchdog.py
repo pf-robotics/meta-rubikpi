@@ -5,10 +5,11 @@ import os
 import time
 
 DEFAULT_PWM_VALUE = 128
+MAX_ATTEMPTS = 3
 
 # get fan 12v control line
 fan_12v_config = {8: gpiod.LineSettings(direction=Direction.OUTPUT)}
-fan_12v_line = gpiod.request_lines("/dev/gpiochip2", consumer="demo", config=fan_12v_config)
+fan_12v_line = gpiod.request_lines("/dev/gpiochip2", consumer="fan-watchdog", config=fan_12v_config)
 
 # search for max31760 from  /sys/class/hwmon/hwmon*/name
 for hwmon in os.listdir("/sys/class/hwmon"):
@@ -37,6 +38,7 @@ fan_12v_line.set_value(8, Value.ACTIVE) # turn on 12v
 fan1_enable_fp.write(b"1") # enable fan
 fan1_enable_fp.seek(0)
 
+i = 0
 while True:
     time.sleep(1)
     fan1_input = int(fan1_input_fp.read().decode().strip())
@@ -45,11 +47,16 @@ while True:
     fan1_fault_status_fp.seek(0)
     print(f"Fan1 input: {fan1_input} RPM, fault status: {fan1_fault_status}")
     if fan1_fault_status != 0 or fan1_input < 100:
-        print("Fan1 fault detected! Attempting to reset...")
+        print("Fan1 fault detected! Shuting down...")
         fan_12v_line.set_value(8, Value.INACTIVE) # turn off 12v
         fan1_enable_fp.write(b"0") # disable fan
         fan1_enable_fp.seek(0)
+        if i >= MAX_ATTEMPTS:
+            print("Max attempts reached. Exiting...")
+            exit(-1)
         time.sleep(10)
+        print("Attempting to restart fan...")
         fan_12v_line.set_value(8, Value.ACTIVE) # turn on 12v
         fan1_enable_fp.write(b"1") # enable fan
         fan1_enable_fp.seek(0)
+        i += 1
