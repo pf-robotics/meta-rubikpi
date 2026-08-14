@@ -24,10 +24,7 @@ CORE_IMAGE_BASE_INSTALL += " \
     packagegroup-rubikpi \
     rubikpi-bt-staticdev \
     rwreservepartition \
-    ax88179bprogrammer \
-    packagegroup-qt5-toolchain-target \
     rubikpi-config \
-    packagegroup-qcom-test-pkgs \
     first-login \
     rubikpi3-thermal \
     pfr-ansible-bootstrap \
@@ -40,15 +37,12 @@ IMAGE_INSTALL:append = " \
     hostapd \
     i2c-tools \
     minicom \
-    make cmake \
     iperf3 iperf2 \
     tcpdump lmbench wget lighttpd \
     adduser iproute2 python3-pip sudo \
     rwreservepartition \
-    ax88179bprogrammer \
     libcec \
     cec-client \
-    python3-pyqt5 python3-pytest-qt \
     python3-gpiod \
     iotop lsof \
     var-rubikpi-config-mount \
@@ -71,7 +65,7 @@ EXTRA_IMAGE_FEATURES += "tools-sdk"
 
 # This image is sufficiently large, need to be careful that it fits in the partition.
 # Nullify the overhead factor added in minimal image and explicitly add just 1GB.
-IMAGE_OVERHEAD_FACTOR = "1.5"
+IMAGE_OVERHEAD_FACTOR = "1.0"
 IMAGE_ROOTFS_EXTRA_SPACE = "1048576"
 
 EXTRA_IMAGE_FEATURES:append = " tools-testapps ptest-pkgs"
