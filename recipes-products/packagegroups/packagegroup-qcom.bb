@@ -19,8 +19,6 @@ RDEPENDS:${PN} = "\
     packagegroup-filesystem-utils \
     packagegroup-qcom-initscripts \
     packagegroup-support-utils \
-    ${@bb.utils.contains('DISTRO_FEATURES', 'virtualization', 'packagegroup-qcom-vm-host', '', d)} \
-    packagegroup-qcom-wifi \
     "
 
 RDEPENDS:${PN}:append:qcom-custom-distro = "\
