@@ -1,5 +1,4 @@
 require qcom-console-image.bb
-inherit populate_sdk_qt5
 
 # PFR version embedding: pass QLIPFR_VERSION via BB_ENV_PASSTHROUGH_ADDITIONS in CI
 QLIPFR_VERSION ?= "dev"
@@ -47,12 +46,6 @@ IMAGE_INSTALL:append = " \
     iotop lsof \
     var-rubikpi-config-mount \
     wiringrp wiringrp-python wiringrp-gpio \
-    glibc-utils \
-    fontconfig \
-    ttf-vlgothic \
-    glibc-gconv-euc-jp \
-    glibc-gconv-sjis \
-    locale-base-ja-jp \
     chromium-ozone-wayland \
 "
 
@@ -67,8 +60,6 @@ EXTRA_IMAGE_FEATURES += "tools-sdk"
 # Nullify the overhead factor added in minimal image and explicitly add just 1GB.
 IMAGE_OVERHEAD_FACTOR = "1.0"
 IMAGE_ROOTFS_EXTRA_SPACE = "1048576"
-
-EXTRA_IMAGE_FEATURES:append = " tools-testapps ptest-pkgs"
 
 do_deploy_fixup:append() {
     # copy splash.img

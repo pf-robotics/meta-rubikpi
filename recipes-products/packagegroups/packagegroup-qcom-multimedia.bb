@@ -16,7 +16,6 @@ RDEPENDS:${PN} = "\
     gstreamer1.0-plugins-base \
     gstreamer1.0-plugins-good \
     gstreamer1.0-plugins-bad \
-    gstreamer1.0-rtsp-server \
     packagegroup-qcom-camera \
     packagegroup-qcom-display \
     packagegroup-qcom-audio \
