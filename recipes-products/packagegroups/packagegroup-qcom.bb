@@ -21,6 +21,9 @@ RDEPENDS:${PN} = "\
     packagegroup-support-utils \
     "
 
+# power management is necessary
+RDEPENDS:${PN}:append:qcom-custom-distro = "packagegroup-qcom-ppat"
+
 RDEPENDS:packagegroup-support-utils = "\
     can-utils \
     chrony \
