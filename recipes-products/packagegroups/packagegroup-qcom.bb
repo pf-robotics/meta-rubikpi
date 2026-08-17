@@ -21,8 +21,13 @@ RDEPENDS:${PN} = "\
     packagegroup-support-utils \
     "
 
-# power management is necessary
-RDEPENDS:${PN}:append:qcom-custom-distro = "packagegroup-qcom-ppat"
+RDEPENDS:${PN}:append:qcom-custom-distro = "\
+    packagegroup-qcom-core \
+    packagegroup-qcom-data \
+    packagegroup-qcom-perf \
+    packagegroup-qcom-ppat \
+    packagegroup-qcom-securemsm \
+    "
 
 RDEPENDS:packagegroup-support-utils = "\
     can-utils \
