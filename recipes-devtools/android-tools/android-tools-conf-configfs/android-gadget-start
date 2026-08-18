@@ -1,0 +1,25 @@
+#!/bin/sh
+
+set -e
+
+sleep 10
+
+# On a Type-C dual-role port, only bind the gadget while the negotiated USB
+# role is "device" - "host" (controller driving VBUS/host mode) or "none"
+# (nothing/not yet negotiated) must leave the UDC unbound so this doesn't
+# fight the port's actual state. Ports without a role switch keep the
+# previous unconditional bind.
+role_file=`ls /sys/class/usb_role/a600000.usb-role-switch/role 2>/dev/null`
+if [ -n "$role_file" ] && [ "$(cat "$role_file")" != "device" ]; then
+	echo "USB role is not device, not binding USB ADB Gadget"
+	exit 0
+fi
+
+udcname=$(ls /sys/class/udc/ | head -n 1)
+if [ -z "$udcname" ]; then
+	echo "No UDC found, not binding USB ADB Gadget"
+	exit 0
+fi
+echo -n "$udcname" > /sys/kernel/config/usb_gadget/adb/UDC
+
+echo "Setting UDC $udcname for USB ADB Gadget usage"

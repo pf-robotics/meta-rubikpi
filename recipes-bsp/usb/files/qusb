@@ -49,7 +49,31 @@ usb_unbind() {
 	fi
 }
 
+# Returns the current Type-C data role ("host"/"device"/"none") for the
+# primary USB port, or "unknown" if the port has no role switch (e.g. the
+# port is wired as a fixed peripheral/host, or the kernel doesn't expose one).
+usb_role_get() {
+	role_file=`ls /sys/class/usb_role/a600000.usb-role-switch/role 2>/dev/null`
+	if [ -z "$role_file" ]; then
+		echo "unknown"
+		return
+	fi
+	cat "$role_file"
+}
+
 usb_bind() {
+	# Type-C ports wired as a dual-role port (dr_mode = "otg" with
+	# usb-role-switch) must only have the gadget bound while the port has
+	# negotiated the "device" role - binding while "host" (controller is
+	# driving VBUS/host mode) or "none" (nothing/not yet negotiated) would
+	# fight the port's actual state. Ports without a role switch ("unknown")
+	# keep the previous unconditional behavior.
+	role=`usb_role_get`
+	if [ "$role" != "device" ] && [ "$role" != "unknown" ]; then
+		usb_unbind
+		return
+	fi
+
 	count=`ls /sys/class/udc | wc -l`
 	if [ $count -gt 1 ]; then
 		udcname=a600000.usb
