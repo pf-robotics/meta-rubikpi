@@ -14,7 +14,7 @@ PE = "1"
 # repo during parse
 SRCREV = "v2025.01"
 
-SRC_URI = "git://source.denx.de/u-boot/u-boot.git;protocol=https;branch=master"
+SRC_URI = "git://github.com/u-boot/u-boot.git;protocol=https;branch=master"
 
 SRC_URI += "file://0001-PENDING-arm64-dts-qcom-qcs9100-Add-support-for-the-Q.patch \
 	    file://0002-PENDING-configs-add-qcm6490_defconfig.patch \
