@@ -1,1 +1,7 @@
 SUBSYSTEM=="udc", ACTION=="add", RUN+="/usr/bin/qusb rebind"
+
+# Type-C dual-role port: re-evaluate the gadget UDC binding whenever the
+# negotiated USB role (host/device/none) changes, so the ADB gadget follows
+# the port's actual data role instead of staying bound regardless of it.
+SUBSYSTEM=="usb_role", ACTION=="add", RUN+="/usr/bin/qusb rebind"
+SUBSYSTEM=="usb_role", ACTION=="change", RUN+="/usr/bin/qusb rebind"
