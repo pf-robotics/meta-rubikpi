@@ -2,6 +2,7 @@
 Description=Read last capsule update attempt and SYSFW_VERSION data
 After=network.target local-fs.target
 Requires=local-fs.target
+ConditionPathExists=/sys/firmware/efi/esrt/entries/entry0
 
 [Service]
 Type=oneshot

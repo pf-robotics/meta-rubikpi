@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 import ctypes
 import json
+import os
 
 class QSYS_FW_VERSION_DATA(ctypes.Structure):
     _pack_ = 1
@@ -30,26 +31,36 @@ class QSYS_FW_VERSION_DATA(ctypes.Structure):
             return None
 
 if __name__ == "__main__":
+    if os.path.exists("/tmp/last_capsule_status.json"):
+        os.remove("/tmp/last_capsule_status.json")
     try:
         last_capsule_attempt = open("/sys/firmware/efi/esrt/entries/entry0/last_attempt_status").read().strip()
         print("Last capsule attempt status:", last_capsule_attempt)
+    except:
+        print("Failed to check /sys/firmware/efi/esrt/entries/entry0/last_attempt_status")
+        exit(-1)
+    try:
         sysfw_version_data = open("/dev/disk/by-partlabel/SYSFW_VERSION", "rb").read()
-        parsed_version_data = QSYS_FW_VERSION_DATA.from_bytes(sysfw_version_data)
-        print("Parsed SYSFW_VERSION data:")
-        print("Signature:", parsed_version_data.Signature)
-        print("Revision:", parsed_version_data.Revision)
-        print("VersionDataSize:", parsed_version_data.VersionDataSize)
-        print("VersionDataCrc32:", parsed_version_data.VersionDataCrc32)
-        print("FwVersion:", parsed_version_data.FwVersion)
-        print("LowestSupportedFwVersion:", parsed_version_data.LowestSupportedFwVersion)
-        json.dump({
-            "last_capsule_attempt": last_capsule_attempt,
-            "Signature": parsed_version_data.Signature,
-            "Revision": parsed_version_data.Revision,
-            "VersionDataSize": parsed_version_data.VersionDataSize,
-            "VersionDataCrc32": parsed_version_data.VersionDataCrc32,
-            "FwVersion": parsed_version_data.FwVersion,
-            "LowestSupportedFwVersion": parsed_version_data.LowestSupportedFwVersion
-        }, open("/tmp/last_capsule_status.json", "w"), indent=4)
-    except Exception as e:
-        print(f"ERROR: Failure reading SYSFW_VERSION file(error:{e})", e)
+    except:
+        print("Failed to read /dev/disk/by-partlabel/SYSFW_VERSION")
+        exit(-1)
+    if len(sysfw_version_data) < ctypes.sizeof(QSYS_FW_VERSION_DATA):
+        print("Error: SYSFW_VERSION size mismatch")
+        exit(-1)
+    parsed_version_data = QSYS_FW_VERSION_DATA.from_bytes(sysfw_version_data)
+    print("Parsed SYSFW_VERSION data:")
+    print("Signature:", parsed_version_data.Signature)
+    print("Revision:", parsed_version_data.Revision)
+    print("VersionDataSize:", parsed_version_data.VersionDataSize)
+    print("VersionDataCrc32:", parsed_version_data.VersionDataCrc32)
+    print("FwVersion:", parsed_version_data.FwVersion)
+    print("LowestSupportedFwVersion:", parsed_version_data.LowestSupportedFwVersion)
+    json.dump({
+        "last_capsule_attempt": last_capsule_attempt,
+        "Signature": parsed_version_data.Signature,
+        "Revision": parsed_version_data.Revision,
+        "VersionDataSize": parsed_version_data.VersionDataSize,
+        "VersionDataCrc32": parsed_version_data.VersionDataCrc32,
+        "FwVersion": parsed_version_data.FwVersion,
+        "LowestSupportedFwVersion": parsed_version_data.LowestSupportedFwVersion
+    }, open("/tmp/last_capsule_status.json", "w"), indent=4)
