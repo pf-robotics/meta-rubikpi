@@ -32,6 +32,7 @@ CORE_IMAGE_BASE_INSTALL += " \
     rubikpi3-thermal \
     pfr-ansible-bootstrap \
     pfr-camera-config \
+    pfr-fan-watchdog \
     pfr-read-capsule-ver \
 "
 
@@ -48,6 +49,7 @@ IMAGE_INSTALL:append = " \
     libcec \
     cec-client \
     python3-pyqt5 python3-pytest-qt \
+    python3-gpiod \
     iotop lsof \
     var-rubikpi-config-mount \
     wiringrp wiringrp-python wiringrp-gpio \
