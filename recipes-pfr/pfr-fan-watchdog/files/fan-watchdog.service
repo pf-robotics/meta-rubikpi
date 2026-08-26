@@ -1,0 +1,11 @@
+[Unit]
+Description=Monitor and Control the FAN 12v
+After=network.target local-fs.target
+Requires=local-fs.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/python3 /bin/fan-watchdog.py
+
+[Install]
+WantedBy=multi-user.target

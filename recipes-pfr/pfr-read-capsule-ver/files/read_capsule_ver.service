@@ -1,0 +1,13 @@
+[Unit]
+Description=Read last capsule update attempt and SYSFW_VERSION data
+After=network.target local-fs.target
+Requires=local-fs.target
+ConditionPathExists=/sys/firmware/efi/esrt/entries/entry0
+
+[Service]
+Type=oneshot
+ExecStart=python3 /usr/bin/read_capsule_ver.py
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target
