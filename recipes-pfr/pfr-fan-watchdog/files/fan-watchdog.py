@@ -13,8 +13,12 @@ DEFAULT_PWM_VALUE = 128
 MAX_ATTEMPTS = 3
 
 # get fan 12v control line
-fan_12v_config = {8: gpiod.LineSettings(direction=Direction.OUTPUT)}
-fan_12v_line = gpiod.request_lines("/dev/gpiochip2", consumer="fan-watchdog", config=fan_12v_config)
+try:
+    fan_12v_config = {8: gpiod.LineSettings(direction=Direction.OUTPUT)}
+    fan_12v_line = gpiod.request_lines("/dev/gpiochip2", consumer="fan-watchdog", config=fan_12v_config)
+except Exception as e:
+    json.dump({"error": True, "msg": f"failed to request fan 12v control line: {e}"}, open("/tmp/fan12v_status.json", "w"))
+    raise RuntimeError(f"Failed to request fan 12v control line: {e}")
 
 # search for max31760 from  /sys/class/hwmon/hwmon*/name
 for hwmon in os.listdir("/sys/class/hwmon"):
