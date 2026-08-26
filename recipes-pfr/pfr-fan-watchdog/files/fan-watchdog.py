@@ -3,6 +3,11 @@ import gpiod
 from gpiod.line import Direction, Value
 import os
 import time
+import json
+
+# del /tmp/fan12v_status.json if exists
+if os.path.exists("/tmp/fan12v_status.json"):
+    os.remove("/tmp/fan12v_status.json")
 
 DEFAULT_PWM_VALUE = 128
 MAX_ATTEMPTS = 3
@@ -19,6 +24,7 @@ for hwmon in os.listdir("/sys/class/hwmon"):
         print(f"Found max31760 controller at {max31760_controller_path}")
         break
 else:
+    json.dump({"error": True, "msg": "max31760 controller not found"}, open("/tmp/fan12v_status.json", "w"))
     raise RuntimeError("max31760 controller not found")
 
 pwm1_enable_fp = open(f"{max31760_controller_path}/pwm1_enable", "wb", buffering=0)
@@ -48,6 +54,7 @@ while True:
     print(f"Fan1 input: {fan1_input} RPM, fault status: {fan1_fault_status}")
     if fan1_fault_status != 0 or fan1_input < 100:
         print("Fan1 fault detected! Shuting down...")
+        json.dump({"error": True, "fan1_input": fan1_input, "msg": "fan1 stucked", "attempt": i}, open("/tmp/fan12v_status.json", "w"))
         fan_12v_line.set_value(8, Value.INACTIVE) # turn off 12v
         fan1_enable_fp.write(b"0") # disable fan
         fan1_enable_fp.seek(0)
@@ -60,3 +67,6 @@ while True:
         fan1_enable_fp.write(b"1") # enable fan
         fan1_enable_fp.seek(0)
         i += 1
+    else:
+        i = 0
+        json.dump({"error": False, "fan1_input": fan1_input, "msg": "fan1 running", "attempt": i}, open("/tmp/fan12v_status.json", "w"))
