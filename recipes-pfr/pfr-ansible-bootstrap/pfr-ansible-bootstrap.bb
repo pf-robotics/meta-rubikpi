@@ -25,6 +25,23 @@ RDEPENDS:${PN} = "bash inotify-tools"
 do_fetch[noexec] = "1"
 do_unpack[noexec] = "1"
 
+# SRC_URI is empty and do_install copies straight out of the sr01 tree, so
+# nothing in the task signature would otherwise change when those files do.
+# Without this, updating e.g. the RPMC binaries in sr01 while the recipe stays
+# untouched lets an sstate hit silently ship the old files into the image.
+do_install[file-checksums] += "\
+    ${SR01_PATH}/host/ansible-ostree/roles/update/files/inotify-sw-updater.sh:True \
+    ${SR01_PATH}/host/ansible-ostree/roles/update/files/run-sw-update.sh:True \
+    ${SR01_PATH}/host/ansible-ostree/roles/update/files/fb-progress.py:True \
+    ${SR01_PATH}/host/ansible-ostree/roles/update/files/fb_draw.py:True \
+    ${SR01_PATH}/host/ansible-ostree/roles/update/files/pfr-inotify-sw-updater.service:True \
+    ${SR01_PATH}/host/ansible-ostree/roles/update/files/rpmc_fwupdate:False \
+    ${SR01_PATH}/host/ansible-ostree/roles/update/files/rpmc_reboot_request:False \
+    ${SR01_PATH}/host/ansible-ostree/roles/usb-automount/files/usbstorage-mount.sh:True \
+    ${SR01_PATH}/host/ansible-ostree/roles/usb-automount/files/usbstorage-mount@.service:True \
+    ${SR01_PATH}/host/ansible-ostree/roles/usb-automount/files/90-usbstorage-mount.rules:True \
+"
+
 do_install() {
     if [ ! -d "${SR01_PATH}/host/ansible-ostree/roles/update" ]; then
         bbfatal "SR01_PATH is not set correctly. Set SR01_PATH in local.conf"
@@ -63,7 +80,7 @@ do_install() {
     # not answer on /dev/ttyHS8 - which is the case for CPU-board-only setup on
     # the line.
     for tool in rpmc_fwupdate rpmc_reboot_request; do
-        if [ ! -f "${UPDATE_FILES}/$tool" ]; then
+        if [ ! -x "${UPDATE_FILES}/$tool" ] || [ ! -s "${UPDATE_FILES}/$tool" ]; then
             bbfatal "Eevee RPMC host tool is missing: ${UPDATE_FILES}/$tool - build it from the sr01 tree first (qlipfr's pfr-build.sh does this automatically): cd <workspace>/sr01 && ./tools/build.py register-binfmt-misc && ./tools/build.py run --container hardware --aarch64 -- python3 <workspace>/sr01/tools/build_host_artifacts.py build $tool --output <workspace>/sr01/host/ansible-ostree/roles/update/files/$tool"
         fi
         install -m 0755 "${UPDATE_FILES}/$tool" ${D}${datadir}/pfr/bin/
