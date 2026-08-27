@@ -5,9 +5,9 @@ import os
 import time
 import json
 
-# del /tmp/fan12v_status.json if exists
-if os.path.exists("/tmp/fan12v_status.json"):
-    os.remove("/tmp/fan12v_status.json")
+# del /tmp/host_status/fan12v_status.json if exists
+if os.path.exists("/tmp/host_status/fan12v_status.json"):
+    os.remove("/tmp/host_status/fan12v_status.json")
 
 DEFAULT_PWM_VALUE = 128
 MAX_ATTEMPTS = 3
@@ -17,7 +17,7 @@ try:
     fan_12v_config = {8: gpiod.LineSettings(direction=Direction.OUTPUT)}
     fan_12v_line = gpiod.request_lines("/dev/gpiochip2", consumer="fan-watchdog", config=fan_12v_config)
 except Exception as e:
-    json.dump({"error": True, "msg": f"failed to request fan 12v control line: {e}"}, open("/tmp/fan12v_status.json", "w"))
+    json.dump({"error": True, "msg": f"failed to request fan 12v control line: {e}"}, open("/tmp/host_status/fan12v_status.json", "w"))
     raise RuntimeError(f"Failed to request fan 12v control line: {e}")
 
 # search for max31760 from  /sys/class/hwmon/hwmon*/name
@@ -28,7 +28,7 @@ for hwmon in os.listdir("/sys/class/hwmon"):
         print(f"Found max31760 controller at {max31760_controller_path}")
         break
 else:
-    json.dump({"error": True, "msg": "max31760 controller not found"}, open("/tmp/fan12v_status.json", "w"))
+    json.dump({"error": True, "msg": "max31760 controller not found"}, open("/tmp/host_status/fan12v_status.json", "w"))
     raise RuntimeError("max31760 controller not found")
 
 pwm1_enable_fp = open(f"{max31760_controller_path}/pwm1_enable", "wb", buffering=0)
@@ -58,7 +58,7 @@ while True:
     print(f"Fan1 input: {fan1_input} RPM, fault status: {fan1_fault_status}")
     if fan1_fault_status != 0 or fan1_input < 100:
         print("Fan1 fault detected! Shuting down...")
-        json.dump({"error": True, "fan1_input": fan1_input, "msg": "fan1 stucked", "attempt": i}, open("/tmp/fan12v_status.json", "w"))
+        json.dump({"error": True, "fan1_input": fan1_input, "msg": "fan1 stucked", "attempt": i}, open("/tmp/host_status/fan12v_status.json", "w"))
         fan_12v_line.set_value(8, Value.INACTIVE) # turn off 12v
         fan1_enable_fp.write(b"0") # disable fan
         fan1_enable_fp.seek(0)
@@ -73,4 +73,4 @@ while True:
         i += 1
     else:
         i = 0
-        json.dump({"error": False, "fan1_input": fan1_input, "msg": "fan1 running", "attempt": i}, open("/tmp/fan12v_status.json", "w"))
+        json.dump({"error": False, "fan1_input": fan1_input, "msg": "fan1 running", "attempt": i}, open("/tmp/host_status/fan12v_status.json", "w"))

@@ -6,6 +6,7 @@ ConditionPathExists=/sys/firmware/efi/esrt/entries/entry0
 
 [Service]
 Type=oneshot
+ExecStartPre=/bin/mkdir -p /tmp/host_status
 ExecStart=python3 /usr/bin/read_capsule_ver.py
 RemainAfterExit=yes
 

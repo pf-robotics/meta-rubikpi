@@ -5,6 +5,7 @@ Requires=local-fs.target
 
 [Service]
 Type=simple
+ExecStartPre=/bin/mkdir -p /tmp/host_status
 ExecStart=/usr/bin/python3 /bin/fan-watchdog.py
 
 [Install]

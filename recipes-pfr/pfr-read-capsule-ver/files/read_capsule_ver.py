@@ -31,8 +31,8 @@ class QSYS_FW_VERSION_DATA(ctypes.Structure):
             return None
 
 if __name__ == "__main__":
-    if os.path.exists("/tmp/last_capsule_status.json"):
-        os.remove("/tmp/last_capsule_status.json")
+    if os.path.exists("/tmp/host_status/last_capsule_status.json"):
+        os.remove("/tmp/host_status/last_capsule_status.json")
     try:
         last_capsule_attempt = open("/sys/firmware/efi/esrt/entries/entry0/last_attempt_status").read().strip()
         print("Last capsule attempt status:", last_capsule_attempt)
@@ -63,4 +63,4 @@ if __name__ == "__main__":
         "VersionDataCrc32": parsed_version_data.VersionDataCrc32,
         "FwVersion": parsed_version_data.FwVersion,
         "LowestSupportedFwVersion": parsed_version_data.LowestSupportedFwVersion
-    }, open("/tmp/last_capsule_status.json", "w"), indent=4)
+    }, open("/tmp/host_status/last_capsule_status.json", "w"), indent=4)
