@@ -22,7 +22,6 @@ RDEPENDS:${PN}:append:qcm6490 = " \
              kernel-module-qps615 \
              qps615-firmware \
              imsdpl \
-             imsrtp \
 "
 
 RDEPENDS:${PN}:append:qcs9100 = " \
