@@ -29,7 +29,7 @@ SOTA_CLIENT = ""
 IMAGE_INSTALL:remove = "${@oe.utils.ifelse('${SOTA_CLIENT}' != 'aktualizr', 'aktualizr aktualizr-info', '')}"
 
 IMAGE_OVERHEAD_FACTOR = "1.0"
-IMAGE_ROOTFS_EXTRA_SPACE = "131072"
+IMAGE_ROOTFS_EXTRA_SPACE = "1048576"
 
 EXTRA_USERS_PARAMS = "usermod -p '\$6\$UDMimfYF\$akpHo9mLD4z0vQyKzYxYbsdYxnpUD7B7rHskq1E3zXK8ygxzq719wMxI78i0TIIE0NB1jUToeeFzWXVpBBjR8.' root;"
 
