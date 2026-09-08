@@ -20,6 +20,7 @@ CORE_IMAGE_BASE_INSTALL += " \
     var-persist-mount \
     qcom-resize-partitions \
     packagegroup-filesystem-utils \
+    rwreservepartition \
 "
 
 IMAGE_FSTYPES:remove = "${@bb.utils.contains('DISTRO_FEATURES', 'sota', 'ostreepush garagesign garagecheck', ' ', d)}"
