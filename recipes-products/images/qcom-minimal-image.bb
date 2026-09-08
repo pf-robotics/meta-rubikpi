@@ -21,6 +21,7 @@ CORE_IMAGE_BASE_INSTALL += " \
     qcom-resize-partitions \
     packagegroup-filesystem-utils \
     rwreservepartition \
+    rubikpi3-dtbo \
 "
 
 IMAGE_FSTYPES:remove = "${@bb.utils.contains('DISTRO_FEATURES', 'sota', 'ostreepush garagesign garagecheck', ' ', d)}"
