@@ -99,4 +99,4 @@ FILES:${PN}-staticdev = ""
 # The modules are dlopen()ed by camera.qcom by name; keep the unversioned .so
 # in the main package and skip the QA checks the prebuilt recipe skipped.
 INSANE_SKIP = "1"
-INSANE_SKIP:${PN} = "dev-so file-rdeps dev-deps ldflags already-stripped"
+INSANE_SKIP:${PN} = "dev-so file-rdeps dev-deps ldflags already-stripped staticdev"
