@@ -76,6 +76,15 @@ do_autogen() {
 do_autogen[dirs] = "${S}"
 do_configure[prefuncs] += "do_autogen"
 
+# Binaries the prebuilt package shipped that have no source in the tree
+# (see oem/qcom/prebuilt/README.md in chi-cdk-kt).
+do_install:append() {
+    install -d ${D}${libdir}/camera
+    for f in ${S}/oem/qcom/prebuilt/*.bin; do
+        [ -e "$f" ] && install -m 0644 "$f" ${D}${libdir}/camera/
+    done
+}
+
 FILES:${PN} = "\
     /usr/lib/* \
     /usr/bin/* \
@@ -84,6 +93,8 @@ FILES:${PN} = "\
     /lib/firmware/* \
     /system/etc/camera/* "
 FILES:${PN}-dev = ""
+# Keep the static chi libraries in the main package as the prebuilt did.
+FILES:${PN}-staticdev = ""
 
 # The modules are dlopen()ed by camera.qcom by name; keep the unversioned .so
 # in the main package and skip the QA checks the prebuilt recipe skipped.
