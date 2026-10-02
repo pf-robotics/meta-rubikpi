@@ -22,11 +22,7 @@ RDEPENDS:${PN} = "\
     "
 
 RDEPENDS:${PN}:append:qcom-custom-distro = "\
-    packagegroup-qcom-core \
-    packagegroup-qcom-data \
-    packagegroup-qcom-perf \
-    packagegroup-qcom-ppat \
-    packagegroup-qcom-securemsm \
+    usb \
     "
 
 RDEPENDS:packagegroup-support-utils = "\
