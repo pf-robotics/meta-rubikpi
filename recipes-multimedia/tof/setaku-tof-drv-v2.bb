@@ -21,14 +21,14 @@ MAKE_TARGETS = "all"
 do_module_signing[fakeroot] = "1"
 
 do_install() {
-    install -d ${D}/lib/modules/${KERNEL_VERSION}/kernel/drivers
-    install -m 0644 ${B}/easy_csi2_reader.ko -D ${D}/lib/modules/${KERNEL_VERSION}/kernel/drivers/setaku-tof-v2.ko
+    install -d ${D}${nonarch_base_libdir}/modules/${KERNEL_VERSION}/kernel/drivers
+    install -m 0644 ${B}/easy_csi2_reader.ko -D ${D}${nonarch_base_libdir}/modules/${KERNEL_VERSION}/kernel/drivers/setaku-tof-v2.ko
     install -d ${D}${sysconfdir}/udev/rules.d
     install -m 0644 ${THISDIR}/camera.rules -D ${D}${sysconfdir}/udev/rules.d/camera.rules
     install -d ${D}${sysconfdir}/modprobe.d
     install -m 0644 ${THISDIR}/*.conf -D ${D}${sysconfdir}/modprobe.d/
 }
 
-FILES:${PN} += "/lib/modules/${KERNEL_VERSION}/kernel/drivers/setaku-tof-v2.ko \
+FILES:${PN} += "${nonarch_base_libdir}/modules/${KERNEL_VERSION}/kernel/drivers/setaku-tof-v2.ko \
     ${sysconfdir}/udev/rules.d \
 	${sysconfdir}/modprobe.d"
