@@ -15,7 +15,6 @@ do_unpack() {
     cp -aL ${LOCAL_DRV_SRC}/. ${S}/
 }
 
-RPROVIDES:${PN} += "kernel-module-setaku-tof-v2"
 MAKE_TARGETS = "all"
 
 do_module_signing[fakeroot] = "1"
@@ -29,6 +28,6 @@ do_install() {
     install -m 0644 ${THISDIR}/*.conf -D ${D}${sysconfdir}/modprobe.d/
 }
 
-FILES:${PN} += "${nonarch_base_libdir}/modules/${KERNEL_VERSION}/kernel/drivers/setaku-tof-v2.ko \
-    ${sysconfdir}/udev/rules.d \
-	${sysconfdir}/modprobe.d"
+# Leave the .ko to kernel-module-split; ${PN} automatically depends on that package.
+FILES:${PN} += "${sysconfdir}/udev/rules.d \
+    ${sysconfdir}/modprobe.d"
