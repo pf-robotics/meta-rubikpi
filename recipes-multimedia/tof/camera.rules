@@ -1,0 +1,3 @@
+# For Kodiak
+ACTION=="add", ATTR{soc_id}=="497|498|575", \
+               RUN+="/bin/sh -c '/sbin/modprobe setaku-tof-v2'"
