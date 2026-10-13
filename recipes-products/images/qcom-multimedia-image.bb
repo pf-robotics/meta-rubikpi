@@ -31,7 +31,6 @@ CORE_IMAGE_BASE_INSTALL += " \
     first-login \
     rubikpi3-thermal \
     pfr-ansible-bootstrap \
-    pfr-camera-config \
     pfr-fan-watchdog \
     pfr-read-capsule-ver \
 "
