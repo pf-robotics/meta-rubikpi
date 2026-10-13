@@ -12,11 +12,6 @@ PROVIDES = "${PACKAGES}"
 PACKAGES = "${PN}"
 
 RDEPENDS:${PN} = "\
-    gstreamer1.0 \
-    gstreamer1.0-plugins-base \
-    gstreamer1.0-plugins-good \
-    gstreamer1.0-plugins-bad \
-    gstreamer1.0-rtsp-server \
     tensorflow-lite \
     ${@bb.utils.contains('DISTRO_FEATURES', 'virtualization', 'packagegroup-qcom-containers', '', d)} \
     ${@bb.utils.contains('DISTRO_FEATURES', 'virtualization', 'packagegroup-qcom-k8s', '', d)} \
