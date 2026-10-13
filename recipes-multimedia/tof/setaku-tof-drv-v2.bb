@@ -18,6 +18,8 @@ do_unpack() {
 RPROVIDES:${PN} += "kernel-module-setaku-tof-v2"
 MAKE_TARGETS = "all"
 
+do_module_signing[fakeroot] = "1"
+
 do_install() {
     install -d ${D}/lib/modules/${KERNEL_VERSION}/kernel/drivers
     install -m 0644 ${B}/easy_csi2_reader.ko -D ${D}/lib/modules/${KERNEL_VERSION}/kernel/drivers/setaku-tof-v2.ko
