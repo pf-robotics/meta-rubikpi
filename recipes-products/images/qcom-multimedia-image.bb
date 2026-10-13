@@ -21,7 +21,6 @@ REQUIRED_DISTRO_FEATURES += "wayland"
 
 CORE_IMAGE_BASE_INSTALL += " \
     packagegroup-qcom-multimedia \
-    packagegroup-rubikpi \
     rubikpi-bt-staticdev \
     rwreservepartition \
     ax88179bprogrammer \
