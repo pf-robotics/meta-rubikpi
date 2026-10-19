@@ -28,6 +28,10 @@ SRC_URI = "file://kernel-6.6;protocol=file;name=git \
            file://0004-QCLINUX-net-stmmac-Add-EEPROM-support-to-driver.patch \
            file://0005-kernel-arm64-dts-qcom-enable-EEPROM-Client-Driver.patch \
            file://0006-kernel-config-qcom-enable-AT24-EEPROM-driver.patch \
+           file://0007-serial-qcom-geni-fix-UART_RX_PAR_EN-bit-position.patch \
+           file://0008-serial-qcom_geni-fix-kfifo-underflow-when-flush-prec.patch \
+           file://0009-serial-qcom_geni-Fix-RX-DMA-stall-when-SE_DMA_RX_LEN.patch \
+           file://0010-serial-qcom-geni-fix-TX-DMA-buffer-flush.patch \
            "
 
 S = "${WORKDIR}/kernel-6.6"
