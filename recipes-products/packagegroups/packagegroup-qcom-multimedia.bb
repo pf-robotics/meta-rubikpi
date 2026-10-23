@@ -16,6 +16,7 @@ RDEPENDS:${PN} = "\
     gstreamer1.0-plugins-base \
     gstreamer1.0-plugins-good \
     gstreamer1.0-plugins-bad \
+    ${@bb.utils.contains('DISTRO_FEATURES', 'virtualization', 'packagegroup-qcom-containers', '', d)} \
     packagegroup-qcom-camera \
     packagegroup-qcom-display \
     packagegroup-qcom-audio \
