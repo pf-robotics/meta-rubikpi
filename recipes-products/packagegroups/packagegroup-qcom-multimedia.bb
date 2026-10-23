@@ -13,6 +13,7 @@ PACKAGES = "${PN}"
 
 RDEPENDS:${PN} = "\
     tensorflow-lite \
+    packagegroup-qcom-ml \
     ${@bb.utils.contains('DISTRO_FEATURES', 'virtualization', 'packagegroup-qcom-containers', '', d)} \
     ${@bb.utils.contains('DISTRO_FEATURES', 'virtualization', 'packagegroup-qcom-k8s', '', d)} \
     packagegroup-qcom-opencv \
