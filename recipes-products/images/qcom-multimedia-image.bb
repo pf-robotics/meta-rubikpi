@@ -19,6 +19,9 @@ LICENSE = "BSD-3-Clause-Clear"
 # let's make sure we have a good image.
 REQUIRED_DISTRO_FEATURES += "wayland"
 
+# CI disables this for tag builds; local and other builds keep Ubuntu by default.
+PFR_INSTALL_UBUNTU ?= "1"
+
 CORE_IMAGE_BASE_INSTALL += " \
     packagegroup-qcom-multimedia \
     packagegroup-rubikpi \
@@ -34,7 +37,7 @@ CORE_IMAGE_BASE_INSTALL += " \
     pfr-camera-config \
     pfr-fan-watchdog \
     pfr-read-capsule-ver \
-    install-ubuntu \
+    ${@bb.utils.contains('PFR_INSTALL_UBUNTU', '1', 'install-ubuntu', '', d)} \
 "
 
 IMAGE_INSTALL:append = " \
