@@ -12,19 +12,18 @@ This change is to stop wpa_supplicant as part of device reboot.
 Signed-off-by: Balaji Pothunoori <quic_bpothuno@quicinc.com>
 Upstream-Status: Pending
 ---
- wpa_supplicant/systemd/wpa_supplicant.service.in | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+ wpa_supplicant/systemd/wpa_supplicant.service.in | 3 +++
+ 1 file changed, 3 insertions(+)
 
 diff --git a/wpa_supplicant/systemd/wpa_supplicant.service.in b/wpa_supplicant/systemd/wpa_supplicant.service.in
-index 58a622887cd9..3eaab717e55b 100644
+index 58a622887cd9..899e930d83e4 100644
 --- a/wpa_supplicant/systemd/wpa_supplicant.service.in
 +++ b/wpa_supplicant/systemd/wpa_supplicant.service.in
-@@ -7,7 +7,10 @@ Wants=network.target
+@@ -8,6 +8,9 @@ Wants=network.target
  [Service]
  Type=dbus
  BusName=fi.w1.wpa_supplicant1
--ExecStart=@BINDIR@/wpa_supplicant -u
-+ExecStart=@BINDIR@/wpa_supplicant -u -ddd -t -f /tmp/wpa_supplicant-log.txt
+ ExecStart=@BINDIR@/wpa_supplicant -u
 +ExecStop=/usr/bin/killall wpa_supplicant
 +Restart=on-failure
 +RestartPreventExitStatus=0
