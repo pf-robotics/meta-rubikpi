@@ -509,8 +509,10 @@ CONFIG_INTERWORKING=y
 # Hotspot 2.0
 CONFIG_HS20=y
 
-# Disable roaming in wpa_supplicant
-CONFIG_NO_ROAMING=y
+# Roaming within the ESS is left to wpa_supplicant (no CONFIG_NO_ROAMING).
+# The Wi-Fi of Evo (rtw88, RTL8822CU over USB) has no firmware roaming, so
+# with CONFIG_NO_ROAMING nothing roams until the link is lost (SREVO-9382).
+#CONFIG_NO_ROAMING=y
 
 CONFIG_NEED_AP_MLME=y
 
