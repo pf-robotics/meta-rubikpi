@@ -59,7 +59,7 @@ IMAGE_INSTALL:append = " \
     glibc-gconv-euc-jp \
     glibc-gconv-sjis \
     locale-base-ja-jp \
-    chromium-ozone-wayland \
+    prebuilt-chromium \
 "
 
 EXTRA_USERS_PARAMS = "\
